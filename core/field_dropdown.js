@@ -152,6 +152,13 @@ Blockly.FieldDropdown.prototype.init = function() {
     }, null);
     this.fieldGroup_.insertBefore(this.box_, this.textElement_);
   }
+
+  this.imageElement_ = Blockly.utils.createSvgElement('image', {
+    'height': this.imageJson_.height + 'px',
+    'width': this.imageJson_.width + 'px'
+  });
+  this.imageElement_.src = this.imageJson_.src;
+
   // Force a reset of the text to add the arrow.
   var text = this.text_;
   this.text_ = null;
@@ -363,10 +370,10 @@ Blockly.FieldDropdown.prototype.setValue = function(newValue) {
     this.selectedItem = null;
   }
   this.value_ = newValue;
-  // Look up and display the human-readable text.
+  // Look up and display the human-readable text/image.
   var options = this.getOptions();
   for (var i = 0; i < options.length; i++) {
-    // Options are tuples of human-readable text and language-neutral values.
+    // Options are tuples of either human-readable text or an image object, and language-neutral values.
     if (options[i][1] == newValue) {
       var content = options[i][0];
       if (typeof content == 'object') {
